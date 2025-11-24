@@ -8,6 +8,7 @@ RUN npm run build
 
 # Production
 FROM nginx:stable
-COPY --from=builder /app/build /usr/share/nginx/html
+# Vite outputs production files to `dist` by default — copy that directory
+COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
