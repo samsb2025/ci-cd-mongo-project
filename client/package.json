@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    
+    "build": "react-scripts build",    
     "lint": "eslint .",
     "preview": "vite preview",
-    "build": "vite build --outDir build"
+    "start": "react-scripts start"
+   
     
   },
   "dependencies": {
