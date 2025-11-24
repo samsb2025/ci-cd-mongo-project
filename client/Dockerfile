@@ -1,27 +1,13 @@
-# Stage 1: Build the Vite app
+# Build stage
 FROM node:22 AS builder
-
-# Set working directory
 WORKDIR /app
-
-# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
-
-# Copy the rest of the source code
 COPY . .
-
-# Build the app
 RUN npm run build
 
-# Stage 2: Serve with Nginx
+# Production stage
 FROM nginx:stable
-
-# Remove default Nginx files
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy built files from builder
-COPY --from=builder /app/build /usr/share/nginx/html
-
+COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
